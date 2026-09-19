@@ -130,7 +130,7 @@ resource "null_resource" "elk" {
     password = "Sandeep.,@0088"
   }
 
-  provisioner "local-exec" {
+  provisioner "remote-exec" {
     command = "ansible-playbook -i ${azurerm_linux_virtual_machine.elk_vm.public_ip_address}, elk.yml -e ansible_user=sandeep -e ansible_password=Sandeep.,@0088"
   }
 }
