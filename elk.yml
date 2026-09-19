@@ -1,0 +1,26 @@
+- name: ELK
+  hosts: all
+  become: true
+  tasks:
+    - name: Install RPM
+      ansible.builtin.dnf:
+        disable_gpg_check: true
+        name:
+          - https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-9.2.4-x86_64.rpm
+          - https://artifacts.elastic.co/downloads/kibana/kibana-9.2.4-x86_64.rpm
+          - https://artifacts.elastic.co/downloads/logstash/logstash-9.2.4-x86_64.rpm
+
+    - name: Update kibana configuration
+      ansible.builtin.lineinfile:
+        path: /etc/kibana/kibana.yml
+        regexp: "#server.host:"
+        line: "server.host: 0.0.0.0"
+
+    - name: Start Services
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        state: restarted
+        enabled: yes
+      loop:
+        - elasticsearch
+        - kibana
