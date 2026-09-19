@@ -132,6 +132,7 @@ resource "null_resource" "elk" {
 
   provisioner "remote-exec" {
     inline = [
+      "sudo dnf install -y ansible-core npm unzip git",
       "ansible-pull -i ${azurerm_linux_virtual_machine.elk_vm.public_ip_address}, -U https://github.com/Sandeepkumar0088/azure-elk.git elk.yml -e ansible_user=sandeep -e ansible_password=Sandeep.,@0088"
 
     ]
