@@ -39,31 +39,33 @@ resource "azurerm_network_security_group" "elk_nsg" {
   location            = azurerm_resource_group.elk.location
   resource_group_name = azurerm_resource_group.elk.name
 
-  # Allow ALL inbound traffic
+  # Allow SSH only
   security_rule {
-    name                       = "Allow-All-Inbound"
+    name                       = "Allow-SSH"
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "*"
+    protocol                   = "Tcp"
 
     source_port_range          = "*"
-    destination_port_range     = "*"
+    destination_port_range     = "22"
 
-    source_address_prefix      = "0.0.0.0/0"
+    source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
 
-  # Allow ALL outbound traffic
+  # Allow all outbound traffic
   security_rule {
     name                       = "Allow-All-Outbound"
     priority                   = 100
     direction                  = "Outbound"
     access                     = "Allow"
     protocol                   = "*"
+
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefix      = "0.0.0.0/0"
+
+    source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
 }
