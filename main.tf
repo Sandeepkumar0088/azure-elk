@@ -17,15 +17,16 @@ resource "azurerm_virtual_network" "elk_vnet" {
   name                = "elk-vnet"
   location            = azurerm_resource_group.elk.location
   resource_group_name = azurerm_resource_group.elk.name
-  address_space       = ["10.0.0.0/16"]
+  address_space       = ["10.30.0.0/16"]
 }
 
 resource "azurerm_subnet" "elk_subnet" {
   name                 = "elk-subnet"
   resource_group_name  = azurerm_resource_group.elk.name
   virtual_network_name = azurerm_virtual_network.elk_vnet.name
-  address_prefixes     = ["10.0.1.0/24"]
+  address_prefixes     = ["10.30.1.0/24"]
 }
+
 resource "azurerm_public_ip" "elk_pip" {
   name                = "elk-pip"
   location            = azurerm_resource_group.elk.location
