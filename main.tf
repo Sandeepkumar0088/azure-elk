@@ -94,7 +94,7 @@ resource "azurerm_linux_virtual_machine" "elk_vm" {
   name                = "elk-vm"
   resource_group_name = azurerm_resource_group.elk.name
   location            = azurerm_resource_group.elk.location
-  size                = "Standard_D4ls_v6"
+  size                = "Standard_D4ds_v6"
 
   admin_username                  = "sandeep"
   admin_password                  = "Sandeep.,@0088"
